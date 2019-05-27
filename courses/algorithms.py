@@ -33,8 +33,8 @@ def randomize_word(word):
         return 'potatoe'
     newword = list(word)
     # Picks a random character and changes it to a random letter
-    newword[randint(0,len(word))] = chr(randint(97,122))
-    return newword
+    newword[randint(0, len(word)-1)] = chr(randint(97, 122))
+    return ''.join(newword)
 
 def get_pure_strings(l_of_strings, auto_randomize_ints, delim):
 
