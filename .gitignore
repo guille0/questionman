@@ -2,6 +2,7 @@
 .vscode/
 django-env/
 .tests/
+.old/
 node_modules
 
 # Byte-compiled / optimized / DLL files
