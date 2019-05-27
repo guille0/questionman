@@ -1,0 +1,75 @@
+{% extends 'courses/base.html' %}
+{% block content %}
+
+{% load static %}
+
+<div class="box-question">
+
+  <div id="text-question">Loading...</div>
+
+  <div id="box-input-choice" style="display: none">
+    <div class="input-choice" id="0"></div>
+    <div class="input-choice" id="0"></div>
+    <div class="input-choice" id="0"></div>
+  </div>
+
+  <div id="box-input-write" style="display: none">
+    <input id="input-write" type="text" autocomplete="off" autofocus="on">
+  </div>
+
+  <div class="box-tinyalert">
+    <div class="text-tinyalert" id="text-novalue" style="display: none">Please select an answer.</div>
+  </div>
+
+  <div class="container-confirm">
+      <div class="button-confirm" id="button-skip">Skip</div>
+      <div class="button-confirm" id="button-confirm">Confirm</div>
+  </div>
+
+</div>
+
+<div class="box-result" style="display:none">
+
+  <div id="text-result">didn't load</div>
+  <div id="text-result-detail">didn't load</div>
+
+  <div class="container-confirm">
+    <div class="button-confirm" id="button-next">Continue</div>
+  </div>
+
+</div>
+
+<link rel="stylesheet" type="text/css" href="{% static 'courses/main.css' %}">
+<script src='{% static "courses/jquery-3.3.1.js" %}'></script>
+<script src='{% static "courses/levenshtein.js" %}'></script>
+<script src='{% static "courses/questionnaire.js" %}'></script>
+
+<script>
+  
+  const test = parseInt('{{ test }}')
+  const apq = parseInt('{{ apq }}')
+  const delim = '{{ delim }}'
+  const questionData = JSON.parse(htmlUnescape('{{ q }}'))
+  const answerData = JSON.parse(htmlUnescape('{{ a }}'))
+  const choicesData = JSON.parse(htmlUnescape('{{ c }}'))
+  const typeData = JSON.parse(htmlUnescape('{{ t }}'))
+  const urlBack = '{% url "browse-course" course.id %}'
+  const questionnaire_id = '{{ questionnaire.id }}'
+
+  const aq = arrayOfQuestions(questionData, answerData, choicesData, typeData)
+
+  questionnaire = []
+  for (let i = 0; i < aq.length; i++) {
+    questionnaire.push(i)
+  }
+
+  let currentQ = questionnaire[0]
+  let playersAnswer = ''
+
+  $(document).ready(function() {
+    renderQuestion(aq, currentQ)
+  });
+
+</script>
+
+{% endblock content %}

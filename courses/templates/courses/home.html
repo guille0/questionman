@@ -1,0 +1,49 @@
+{% extends 'courses/base.html' %}
+{% block content %}
+<div class="slider">
+<ul class="slides">
+    <li>
+        {% load static %}
+    <img src="{% static "courses/images/pic.png" %}">
+    <div class="caption center-align" style="color: black">
+        <h2>Questionman</h2>
+        <h4 class="black-text bold">Dynamically-generated multiple choice tests</h4>
+    </div>
+    </li>
+    <!-- </li>
+    <li>
+    <img src="{% static "courses/images/pic2.jpg" %}">
+    <div class="caption left-align">
+        <h3>Browse</h3>
+        <h5 class="light grey-text text-lighten-3"><a style="color: paleturquoise" href="{% url 'browse' %}">Explore user-created courses</a></h5>
+    </div>
+    </li> -->
+</ul>
+</div>
+
+
+{% if courses|length > 0 %}
+<h5>Try out some of these courses:</h3>
+  <p>
+    <a href="{% url 'browse-course' courses.0.id %}">{{ courses.0.name }} by {{ courses.0.author.username }}</a>
+  </p>
+{% endif %}
+{% if courses|length > 1 %}
+  <p>
+    <a href="{% url 'browse-course' courses.1.id %}">{{ courses.1.name }} by {{ courses.1.author.username }}</a>
+  </p>
+{% endif %}
+{% if courses|length > 2 %}
+  <p>
+    <a href="{% url 'browse-course' courses.2.id %}">{{ courses.2.name }} by {{ courses.2.author.username }}</a>
+  </p>
+{% endif %}
+
+
+<script>
+  $(document).ready(function(){
+    $('.slider').slider()
+  })
+</script>
+
+{% endblock content %}

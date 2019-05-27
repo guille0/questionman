@@ -1,0 +1,98 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src='{% static "courses/jquery-3.3.1.js" %}'></script>
+  <script src='{% static "courses/materialize.js" %}'></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'courses/materialize.css' %}">
+  
+  <title>Questionman</title>
+
+</head>
+<body class = "container">
+
+  <div class = "row">
+    <div class = "col s12 m12 l12">
+       <nav>
+          <div class = "nav-wrapper">
+             <a href = "{% url 'home' %}" class = "brand-logo left" style = "padding-left: 16px">Questionman</a>
+             <ul id = "nav-mobile" class = "right hide-on-med-and-down">
+                <li><a href = "{% url 'browse' %}"><i class = "material-icons left">storage</i>Find courses</a></li>
+                <li><a href = "{% url 'edit' %}"><i class = "material-icons left">create</i>Create courses</a></li>
+                {% if user.is_authenticated %}
+                  <li><a href = "#">{{ user.username|title }}</a></li>
+                  <li><a href = "{% url 'logout' %}">Log out</a></li>
+                {% else %}
+                  <li><a href = "{% url 'login' %}">Log in</a></li>
+                  <li><a href = "{% url 'register' %}">Register</a></li>
+                {% endif %}
+
+             </ul>
+          </div>
+       </nav>
+    </div>
+  </div>
+
+  <main role="main" class="container">
+    <div class="row">
+        <div class="col-md-8">
+
+          {% if messages %}
+            {% for message in messages %}
+
+              <div class="row">
+                <div class="col s12 m8">
+                  <div class="card-panel teal">
+                    <span class="white-text">{{ message }}</span>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
+
+          {% block content %}{% endblock %}
+        </div>
+
+    </div>
+  </main>
+  <footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Links</h5>
+          <ul>
+          <li><a class="grey-text text-lighten-4" href="{% url 'edit' %}">Create courses</li>
+          <li><a class="grey-text text-lighten-4" href="{% url 'browse' %}">Find courses</li>
+          {% if user.is_authenticated %}
+            <li><a class="grey-text text-lighten-4" href="{% url 'logout' %}">Log out</li>
+          {% else %}
+            <li><a class="grey-text text-lighten-4" href="{% url 'register' %}">Register</li>
+            <li><a class="grey-text text-lighten-4" href="{% url 'login' %}">Log in</li>
+          {% endif %}
+          </ul>
+        </div>
+        <div class="col l4 offset-l2 s12">
+          <h5 class="white-text">Contact</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="https://github.com/guille0">Github</a></li>
+            <li><a class="grey-text text-lighten-3" href="mailto:guillermovicente@protonmail.com">Email</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      © 2019 Copyright
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+
+<!-- Getting icons after the rest of the page finishes loading -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

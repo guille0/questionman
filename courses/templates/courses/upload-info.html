@@ -1,0 +1,17 @@
+{% extends 'courses/base.html' %}
+{% block content %}
+
+<h6>How to upload a course though a .txt file</h6>
+<p>The txt file should follow this format:</p>
+<pre class="prettyprint">
+    [Questionnaire 1]
+    Question, Answer
+    Question, Answer 1, Answer 2, Answer 3
+
+    [Questionnaire 2]
+    Question, Answer
+    # etc.</pre>
+ 
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+
+{% endblock content %}

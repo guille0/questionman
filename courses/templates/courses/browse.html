@@ -1,0 +1,66 @@
+{% extends 'courses/base.html' %}
+{% block content %}
+
+<nav>
+   <div class="nav-wrapper">
+      <div class="col s12">
+         <a class="breadcrumb">Courses</a>
+      </div>
+   </div>
+</nav>
+
+<ul class="collection with-header">
+<form id="likes"></form>
+{% for course in courses %}
+    <li class="collection-item">
+      <div>{{ course.name }} by {{ course.author.username }}
+         <a href="{% url 'browse-course' course.id %}" style="margin-left: 20px" class="secondary-content">
+            <i class="material-icons">send</i>
+         </a>
+         <!-- If the user has already liked it, show different icon, if clicked, gives rating -1 and also updates rating in real time? -->
+               <a href="#" id="{{ course.id }}" style="color:{% if course in user.profile.courses_liked.all %}red{% else %}silver{% endif %}; margin-left: 5px" class="like secondary-content">
+                  <i class="material-icons">favorite</i>
+               </a>
+            <a id="{{ course.id }}" style="margin-top: 1px" class="likes-number secondary-content">{{ course.rating }}</a>
+            {% if course in user.profile.courses_done.all %}
+               <a style="margin-right: 10px; margin-left: 5px" class="secondary-content">
+                  <i class="material-icons">check</i>
+               </a>
+            {% endif %}
+      </div>
+    </li>
+{% endfor %}
+</ul>
+
+<script>
+   $(".like").click(function () {
+      {% if user.is_authenticated %}
+
+         self = $(this)
+         id = self.attr("id")
+
+         $.ajax({
+            url: '{% url "ajax-like-course" %}',
+            data: {'id': id},
+            dataType: 'json',
+
+            success: function (data) {
+               switch (data.liked){
+                  case true:
+                  self.css('color', 'red')
+                  break
+                  case false:
+                  self.css('color', 'silver')
+               }
+               $("#" + id + ".likes-number").text(data.likes_number)
+            }
+         });
+         
+      {% else %}
+         alert('Sorry, you must log in to rate courses.')
+      {% endif %}
+
+   });
+</script>
+
+{% endblock content %}

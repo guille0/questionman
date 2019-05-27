@@ -1,0 +1,38 @@
+{% extends 'courses/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="content-section">
+
+    <h5>Log in</h5><br>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form|crispy }}
+
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Log in</button>
+        </div>
+    
+    </form>
+
+    <div class="border-top pt-3">
+        <!-- <p>
+            <small class="text-muted">
+                Forgot your password? <a class="ml-2" href="{% url 'password-reset' %}">Reset password</a>
+            </small>
+        </p> -->
+        <p>
+            <small class="text-muted">
+                Don't have an account? <a class="ml-2" href="{% url 'register' %}">Register</a>
+            </small>
+        </p>
+    </div>
+    
+</div> 
+
+{% endblock content %}

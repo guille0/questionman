@@ -1,0 +1,97 @@
+{% extends 'courses/base.html' %}
+{% block content %}
+
+<nav>
+   <div class="nav-wrapper">
+      <div class="col s12">
+         <a href="{% url 'edit' %}" class="breadcrumb">Courses</a>
+         <a class="breadcrumb">{{ course.name }}</a>
+      </div>
+   </div>
+</nav>
+
+<div>
+   <form id="form1" method="POST">
+      {% csrf_token %}
+      <button type="submit" name="new-questionnaire" value="pass" style="margin-bottom: -48px"class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">add</i></a></button>
+   </form>
+</div>
+<div>
+{% for item in questionnaires %}
+<div class = "row">
+    <div class = "col s12 m6">
+       <div class = "card blue-grey lighten-4">
+          <div class = "card-content truncate">
+             <span class = "card-title truncate">{{ item.number }}. {{ item.name }}</span>
+             <p class="truncate">{{ item|length }} questions</p>
+          </div>
+          
+          <div class = "card-action">
+
+
+               <form method="POST">
+                     {% csrf_token %}
+                     
+                     <a class="btn waves-effect waves-light" href = "{% url 'edit-questionnaire' course.id item.number %}">Edit
+                        </a>
+
+                     <button {% if questionnaires|length == 1 %} disabled {% endif %} class="btn lighten-4" style="padding: 1px" type="submit" name="moveup" value="{{ item.number }}">
+                        <i class="tiny material-icons">arrow_drop_up</i></button>
+                     <button {% if questionnaires|length == 1 %} disabled {% endif %} class="btn lighten-4" style="padding: 1px" type="submit" name="movedown" value="{{ item.number }}">
+                        <i class="tiny material-icons">arrow_drop_down</i></button>
+         
+                     <button {% if questionnaires|length == 1 %} disabled {% endif %} class="btn waves-effect waves-light red right" type="submit" name="delete" value="{{ item.number }}">Delete
+                        </button>
+                 
+                  </form>
+
+
+          </div>
+
+
+
+
+       </div>
+    </div>
+{% endfor %}
+</div>
+<h5 id="options">Options:</h5>
+
+<form id="form-name-change" method="POST">
+   {% csrf_token %}
+   <p>
+      <div class="row">
+         <div class="input-field col s10">
+            <input autocomplete="off" value="{{ course.name }}" name="name" type="text" class="validate">
+            <label class="active" for="answer">Name</label>
+         </div>
+      </div>
+   </p>
+   <button class="btn waves-effect waves-light right" type="submit" name="edit-values" value='pass'>Save
+      <i class="material-icons right">send</i>
+   </button>
+</form>
+<br><br>
+<div class = "card-panel">
+   <p class = "valign">You can also upload a course through a .txt file. <a href="{% url 'upload-info' %}">See more.</a></p>
+   <form id="form-upload" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <button class="btn waves-effect waves-light" type="submit" name="upload-txt" value='pass'>Upload
+         <i class="material-icons right">send</i>
+
+      </button>
+      <input id="file-upload" type="file" accept=".txt" name="file" class="waves-effect waves-light btn"></input>
+   </form>
+</div>
+
+<script>
+
+$("#file-upload").on("change", function (e) {
+    if(this.files[0].size > 2097152){
+       alert("File is too big! Limited at 2MB.")
+       this.value = ""
+    }
+})
+</script>
+{% endblock content %}

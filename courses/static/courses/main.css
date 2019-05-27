@@ -1,0 +1,157 @@
+/* body {
+  background: #fafafa;
+  color: #333333;
+  margin-top: 5rem;
+}
+
+/* Questionnaire */
+
+.box-question, .box-result {
+  margin: auto;
+  width: 100%;
+  border: 1px #333;
+  background-color: lightblue;
+  border-radius: 25px;
+}
+.box-result[id = "2"] {
+  background-color: gold;
+}
+.box-result[id = "1"] {
+  background-color: greenyellow;
+}
+.box-result[id = "0"] {
+  background-color: red;
+}
+
+#box-input-choice, #box-input-write {
+  margin: auto;
+  width: 80%;
+  padding-top: 8px;
+}
+
+#input-write {
+  width: 40%
+}
+
+.container-confirm{
+  width: 90%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+#text-question, #text-result{
+  margin: auto;
+  padding-top: 26px;
+  margin-bottom: 16px;
+  width: 80%;
+  height: 40px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome and Opera */
+}
+
+#text-result-detail {
+  margin: auto;
+  padding-top: 10px;
+  width: 80%;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome and Opera */
+
+}
+
+.input-choice{
+  /* buttons */
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  display:inline-block;
+  color:#444;
+  border:1px solid #CCC;
+  border-radius: 10%;
+  background:#DDD;
+  box-shadow: 0 0 10px -1px rgba(0,0,0,0.2);
+  cursor:pointer;
+  max-width: 26%;
+  padding: 8px 16px 5px 16px;
+  text-align: center;
+  margin: 0px auto;
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome and Opera */
+}
+
+  /* buttons */
+
+.input-choice:hover {
+  color:red;
+  box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
+  background: cornflowerblue;
+}
+
+.input-choice[id = "1"] {
+  color:red;
+  box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
+}
+
+.button-confirm, .button-next {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  display:inline-block;
+  color:#444;
+  border:1px solid rgba(37, 36, 36, 0.2);
+  border-radius: 10%;
+  background:rgba(159, 238, 106, 0.438);
+  box-shadow: 0 0 10px -1px rgba(0,0,0,0.2);
+  cursor:pointer;
+  vertical-align:middle;
+  max-width: 100px;
+  padding: 5px 20px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  margin-left: 2px;
+  text-align: center;
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+.button-confirm:active, .button-next:active {
+  color:rgb(68, 68, 68);
+  box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
+}
+.box-tinyalert{
+  height: 10px;
+  width: 100%;
+}
+.text-tinyalert{
+  color: crimson;
+  margin: auto;
+  padding: 2px;
+  width: 79%;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+}

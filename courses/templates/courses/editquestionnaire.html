@@ -1,0 +1,155 @@
+{% extends 'courses/base.html' %}
+{% block content %}
+
+<nav>
+   <div class="nav-wrapper">
+      <div class="col s12">
+         <a href="{% url 'edit' %}" class="breadcrumb">Courses</a>
+         <a href="{% url 'edit-course' course.id %}" class="breadcrumb">{{ course.name }}</a>
+         <a class="breadcrumb">{{ questionnaire.name }}</a>
+      </div>
+   </div>
+</nav>
+
+
+<div>
+   <form id="form1" method="POST">
+      {% csrf_token %}
+      <button type="submit" name="new-question" value="pass" style="margin-bottom: -48px"class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">add</i></a></button>
+   </form>
+</div>
+<div class="table">
+{% for item in questions %}
+<div class = "row">
+    <div class = "col s12 m6">
+       <!-- THIS IS GOOD RGHT -->
+       <div class = "card blue-grey lighten-4">
+          <div class = "card-content truncate" style="padding: 5%">
+             <h6 class="truncate">{{ item.question }}</h6>
+             <p class="truncate">{{ item.answer }}</p>
+          </div>
+          
+          <div class = "card-action">
+
+               <form method="POST">
+                  {% csrf_token %}
+
+                  <a class="btn waves-effect waves-light" href = "{% url 'edit-question' course.id questionnaire.number item.number %}">Edit
+                     </a>
+
+                  <button {% if questions|length == 1 %} disabled {% endif %} class="btn lighten-4" style="padding: 1px" type="submit" name="moveup" value="{{ item.number }}">
+                     <i class="tiny material-icons">arrow_drop_up</i></button>
+                  <button {% if questions|length == 1 %} disabled {% endif %} class="btn lighten-4" style="padding: 1px" type="submit" name="movedown" value="{{ item.number }}">
+                     <i class="tiny material-icons">arrow_drop_down</i></button>
+
+                  <button {% if questions|length == 1 %} disabled {% endif %} class="btn waves-effect waves-light red right" type="submit" name="delete" value="{{ item.number }}">Delete
+                     </button>
+              
+               </form>
+
+          </div>
+       </div>
+    </div>
+{% endfor %}
+</div>
+
+<h5 id="options">Options:</h5>
+
+<form id="form2" method="POST">
+   {% csrf_token %}
+   <p>
+      <div class="row">
+         <div class="input-field col s10">
+            <input autocomplete="off" value="{{ questionnaire.name }}" name="name" type="text" class="validate">
+            <label class="active" for="answer">Name</label>
+         </div>
+      </div>
+   </p>
+      <label>
+         <input {% if questionnaire.auto_randomize_ints %} checked {% endif %} id="auto_randomize_ints" name="auto_randomize_ints" type="checkbox" class="filled-in">
+         <span>Randomize numbers</span>
+      </label>
+   </p>
+   <p>
+      <label>
+         <input {% if questionnaire.include_answers_from_previous %} checked {% endif %} id="include_answers_from_previous" name="include_answers_from_previous" type="checkbox" class="filled-in">
+         <span>Include answers from previous questionnaires</span>
+      </label>
+   </p>
+   <p>
+      <label>
+         <input {% if questionnaire.ordered %} checked {% endif %} id="ordered" name="ordered" type="checkbox" class="filled-in">
+         <span>Questions always in order</span>
+      </label>
+   </p>
+   <label><span>Typing questions:</span></label>
+   <p>
+      <div class="switch">
+         <label>
+            Off
+            <input {% if questionnaire.type_write %} checked {% endif %} id="typing_questions" name="typing_questions" type="checkbox">
+            <span class="lever"></span>
+            On
+         </label>
+      </div>
+   </p>
+
+   <p class="range-field">
+      <label>
+         <span>Probability of typing question:</span>
+         <input value="{{ questionnaire.type_write }}" id="probability" name="probability" type="range" min="0" max="100">
+      </label>
+   </p>
+
+
+   <label>Choices to be displayed for each question</label>
+   <select value="5" id="choices_per_question" name="choices_per_question" class="browser-default">
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+   </select>
+
+   <label>Number of questions to ask</label>
+   <select id="questions_per_test" name="questions_per_test" class="browser-default">
+      <option value="0" selected>All of them</option>
+      <option value="3">3</option>
+      <option value="5">5</option>
+      <option value="8">8</option>
+      <option value="10">10</option>
+      <option value="12">12</option>
+      <option value="15">15</option>
+   </select>
+
+   <p>
+      <a onclick="defaults()" class="btn waves-effect waves-light left">Defaults
+      </a>
+      <button class="btn waves-effect waves-light right" type="submit" name="edit-values" value='pass'>Save
+         <i class="material-icons right">send</i>
+      </button>
+   </p>
+
+</form>
+
+<script>
+
+const defaults = () => {
+   $("#ordered").prop("checked", false)
+   $("#auto_randomize_ints").prop("checked", true)
+   $("#include_answers_from_previous").prop("checked", true)
+   $("#typing_questions").prop("checked", true)
+   $("#probability").prop("value", 15)
+   $("#choices_per_question").prop("value", 3)
+   $("#questions_per_test").prop("value", 0)
+}
+
+$("#questions_per_test").prop("value", {{ questionnaire.questions_per_test }})
+$("#choices_per_question").prop("value", {{ questionnaire.choices_per_question }})
+
+</script>
+
+{% endblock content %}

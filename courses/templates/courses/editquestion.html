@@ -1,0 +1,55 @@
+{% extends 'courses/base.html' %}
+{% block content %}
+
+<nav>
+    <div class="nav-wrapper">
+        <div class="col s12">
+            <a href="{% url 'edit' %}" class="breadcrumb">Courses</a>
+            <a href="{% url 'edit-course' course.id %}" class="breadcrumb">{{ course.name }}</a>
+            <a href="{% url 'edit-questionnaire' course.id questionnaire.number %}" class="breadcrumb">{{ questionnaire.name }}</a>
+            <a class="breadcrumb">{{ question.number }}</a>
+        </div>
+    </div>
+</nav>
+
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <div class="input-field col s10">
+            <input autocomplete="off" autofocus onfocus="if (this.value=='New question'){this.select()}" value="{{ question.question }}" name="question" type="text" class="validate">
+            <label class="active" for="question">Question</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s10">
+            <input autocomplete="off" onfocus="if (this.value=='Answer'){this.select()}" value="{{ question.answer }}" name="answer" type="text" class="validate">
+            <label class="active" for="answer">Answer(s)</label>
+            <span class="helper-text">Separate multiple answers with commas</span>
+        </div>
+    </div>
+    <p>
+        <a id="more" onclick='$("#optional").toggle(); $("#less").toggle(); $("#more").toggle();' class="btn-floating btn-small red"><i id="icon-more" class="material-icons">expand_more</i></a>
+        <a id="less" onclick='$("#optional").toggle(); $("#less").toggle(); $("#more").toggle();' style="display:none" class="btn-floating btn-small red"><i id="icon-more" class="material-icons">expand_less</i></a>
+    </p>
+    <div class="row" id="optional" style="display: none">
+            <div class="input-field col s8">
+                <input autocomplete="off" value="{{ question.choices }}" name="choices" type="text" class="validate">
+                <label class="active" for="choices">Fake answer(s) (optional)</label>
+                <span class="helper-text">Separate multiple answers with commas</span>
+            </div>
+    </div>
+ 
+    <button class="btn waves-effect waves-light" type="submit" name="action" value="saveandnew">Save and add new
+            <i class="material-icons right">send</i>
+    </button>
+    <button class="btn waves-effect waves-light" type="submit" name="action" value="save">Save
+        <i class="material-icons right">send</i>
+    </button>
+    <button {% if questions|length == 1 %} disabled {% endif %} class="btn waves-effect waves-light red" type="submit" name="action" value="delete">Delete
+        <i class="material-icons right">send</i>
+    </button>
+
+</form>
+
+{% endblock content %}

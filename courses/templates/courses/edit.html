@@ -1,0 +1,50 @@
+{% extends 'courses/base.html' %}
+{% block content %}
+
+<nav>
+   <div class="nav-wrapper">
+      <div class="col s12">
+         <a class="breadcrumb">Courses</a>
+      </div>
+   </div>
+</nav>
+
+<div>
+   <form id="form1" method="POST">
+      {% csrf_token %}
+      <button type="submit" name="new-course" value="pass" style="margin-bottom: -48px"class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">add</i></a></button>
+   </form>
+</div>
+{% for item in courses %}
+<div class = "row">
+    <div class = "col s12 m6">
+       <div class = "card blue-grey lighten-4">
+          <div class = "card-content truncate">
+             <span class = "card-title truncate">{{ item.name }}</span>
+             <!-- <p class="truncate">by {{ item.author }}</p> -->
+             <p class="truncate">
+                {% for questionnaire in item.get_subfeature_questionnaires %}
+                <a href="{% url 'edit-questionnaire' item.id questionnaire.number %}">{{ questionnaire.name }}</a>{% if questionnaire.id != item.get_subfeature_questionnaires.last.id %},
+                {% endif %}
+                {% endfor %}
+             </p>
+          
+          </div>
+          
+          <div class = "card-action">
+               <form method="POST">
+                     {% csrf_token %}
+   
+                     <a class="btn waves-effect waves-light" href = "{% url 'edit-course' item.id %}">Edit
+                        </a>
+                     
+                     <button {% if questionnaires|length == 1 %} disabled {% endif %} class="btn waves-effect waves-light red right" type="submit" name="delete" value="{{ item.id }}">Delete
+                        </button>
+                 
+                  </form>
+          </div>
+       </div>
+    </div>
+{% endfor %}
+
+{% endblock content %}

@@ -1,0 +1,30 @@
+{% extends 'courses/base.html' %}
+{% block content %}
+
+<nav>
+    <div class="nav-wrapper">
+        <div class="col s12">
+            <a href="{% url 'browse' %}" class="breadcrumb">Courses</a>
+            <a class="breadcrumb">{{ course.name }}</a>
+        </div>
+    </div>
+</nav>
+
+<ul class="collection with-header">
+{% for questionnaire in questionnaires %}
+    <li class="collection-item">
+        <div>{{ questionnaire.number }}. {{ questionnaire.name }}
+            <a href="{% url 'browse-questionnaire' course.id questionnaire.number %}" class="secondary-content">
+                <i class="material-icons">send</i>
+            </a>
+            {% if questionnaire in user.profile.questionnaires_done.all %}
+                <a style="padding-right: 10px; padding-left: 5px" class="secondary-content ">
+                    <i class="material-icons">check</i>
+                </a>
+            {% endif %}
+        </div>
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock content %}
