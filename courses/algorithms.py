@@ -147,7 +147,16 @@ def randomize_int(string):
 
 def generate_answers(questionnaire, apq, auto_randomize_ints, delim, extra_answers):
 
-    correct = get_attribute(questionnaire, 'answer')
+
+    # when we gonna randomize, we pick the first of the answers
+    correct = []
+    for quest in questionnaire:
+        a = quest['answer']
+        a = a.split(',')
+        correct.append(a[0])
+
+    # V This commented line gets all the answers for the question, which fucks it up
+    # correct = get_attribute(questionnaire, 'answer')
 
     # Pool from which to pick fake answers. Removed duplicates.
     fake = list(set(get_pure_strings(correct, auto_randomize_ints, delim) + extra_answers))
