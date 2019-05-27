@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='questionnaire',
             name='multiple_choice',
-            field=models.BooleanField(blank=True, default=True),
+            field=models.SmallIntegerField(blank=True, default=3),
         ),
         migrations.AddField(
             model_name='questionnaire',
